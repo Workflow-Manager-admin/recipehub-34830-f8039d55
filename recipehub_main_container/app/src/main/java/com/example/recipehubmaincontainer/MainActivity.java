@@ -11,10 +11,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Arrays;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout categoryTabs;
     private BottomNavigationView bottomNavBar;
+    private RecyclerView recipeRecyclerView;
+    private RecipeAdapter recipeAdapter;
 
     // PUBLIC_INTERFACE
     @Override
@@ -24,7 +32,68 @@ public class MainActivity extends AppCompatActivity {
 
         setupCategoryTabs();
         setupBottomNavigation();
-        // Future: Setup RecyclerView, Search Logic, Fragments/Nav for Details, etc.
+
+        setupRecipeRecyclerView(); // <-- Setup and bind mock recipes
+    }
+
+    private void setupRecipeRecyclerView() {
+        recipeRecyclerView = findViewById(R.id.recipeList);
+
+        // Use a 2-column grid
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recipeRecyclerView.setLayoutManager(layoutManager);
+
+        // Add spacing for grid items
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recipe_grid_spacing); // fallback if dimens not defined: 16
+        recipeRecyclerView.addItemDecoration(
+                new RecipeGridSpacingItemDecoration(2, spacingInPixels, true)
+        );
+
+        // Bind mock data
+        recipeAdapter = new RecipeAdapter(this, getMockRecipes());
+        recipeRecyclerView.setAdapter(recipeAdapter);
+    }
+
+    // PUBLIC_INTERFACE
+    private List<Recipe> getMockRecipes() {
+        return Arrays.asList(
+                new Recipe(
+                        "Classic Pancakes",
+                        "Fluffy and delicious pancakes, perfect for breakfast.",
+                        "Breakfast",
+                        "https://images.unsplash.com/photo-1504674900247-0877df9cc836" // Placeholder URL
+                ),
+                new Recipe(
+                        "Chicken Caesar Salad",
+                        "A healthy salad with grilled chicken and Caesar dressing.",
+                        "Lunch",
+                        "https://images.unsplash.com/photo-1519864600265-abb23847ef90"
+                ),
+                new Recipe(
+                        "Spaghetti Bolognese",
+                        "Rich tomato sauce with beef served over spaghetti.",
+                        "Dinner",
+                        "https://images.unsplash.com/photo-1504674900247-0877df9cc836"
+                ),
+                new Recipe(
+                        "Chocolate Chip Cookies",
+                        "Crispy on the edges, chewy in the middle.",
+                        "Desserts",
+                        "https://images.unsplash.com/photo-1519864600265-abb23847ef90"
+                ),
+                new Recipe(
+                        "Veggie Omelette",
+                        "Loaded with fresh vegetables and cheese.",
+                        "Breakfast",
+                        "https://images.unsplash.com/photo-1504674900247-0877df9cc836"
+                ),
+                new Recipe(
+                        "Avocado Toast",
+                        "Classic avocado toast, simple and tasty.",
+                        "Lunch",
+                        "https://images.unsplash.com/photo-1519864600265-abb23847ef90"
+                )
+        );
     }
 
     // PUBLIC_INTERFACE

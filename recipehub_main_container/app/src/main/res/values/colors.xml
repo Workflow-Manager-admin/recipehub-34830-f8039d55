@@ -1,0 +1,10 @@
+<resources>
+    <color name="primary">#FF7043</color>
+    <color name="secondary">#FFF3E0</color>
+    <color name="accent">#388E3C</color>
+    <color name="white">#FFFFFF</color>
+    <color name="lightGray">#F5F5F5</color>
+    <color name="bottom_nav_icon_color">#FF7043</color>
+    <color name="text_primary">#1E222D</color>
+    <color name="text_secondary">#4C5C68</color>
+</resources>
